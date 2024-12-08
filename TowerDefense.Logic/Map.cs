@@ -27,7 +27,7 @@ public class Map
 
 	/// <summary>
 	/// The List of the valid Tower Places through the Game, will be changed 
-	/// </summary>
+	/// </summary> 
 	public List<(int x, int y)> ValidTowerPlaces { get;  set; }
 
 	public List<(int x, int y)> PlacedTowers { get;  set; } //NOTE: later maybe with return value Tower
@@ -86,7 +86,7 @@ public class Map
 	/// Finds the Path between the Start and Endpoint and returns it in a List
 	/// </summary>
 	/// <exception cref="NotImplementedException"></exception>
-	public (int x,int y) FindPath()
+	public List< (int x,int y)> FindPath()
 	{
 		throw new NotImplementedException();
 	}
