@@ -1,0 +1,11 @@
+C:\Code\TowerDefense\TowerDefense.Logic\bin\Debug\net7.0\TowerDefense.Logic.deps.json
+C:\Code\TowerDefense\TowerDefense.Logic\bin\Debug\net7.0\TowerDefense.Logic.dll
+C:\Code\TowerDefense\TowerDefense.Logic\bin\Debug\net7.0\TowerDefense.Logic.pdb
+C:\Code\TowerDefense\TowerDefense.Logic\obj\Debug\net7.0\TowerDefense.Logic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Code\TowerDefense\TowerDefense.Logic\obj\Debug\net7.0\TowerDefense.Logic.AssemblyInfoInputs.cache
+C:\Code\TowerDefense\TowerDefense.Logic\obj\Debug\net7.0\TowerDefense.Logic.AssemblyInfo.cs
+C:\Code\TowerDefense\TowerDefense.Logic\obj\Debug\net7.0\TowerDefense.Logic.csproj.CoreCompileInputs.cache
+C:\Code\TowerDefense\TowerDefense.Logic\obj\Debug\net7.0\TowerDefense.Logic.dll
+C:\Code\TowerDefense\TowerDefense.Logic\obj\Debug\net7.0\refint\TowerDefense.Logic.dll
+C:\Code\TowerDefense\TowerDefense.Logic\obj\Debug\net7.0\TowerDefense.Logic.pdb
+C:\Code\TowerDefense\TowerDefense.Logic\obj\Debug\net7.0\ref\TowerDefense.Logic.dll

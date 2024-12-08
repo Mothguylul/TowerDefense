@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefense.Logic", "TowerDefense.Logic\TowerDefense.Logic.csproj", "{9795D271-445E-49F5-B8DE-F8C35EEED346}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefense.UnitTests", "TowerDefense.UnitTests\TowerDefense.UnitTests.csproj", "{0D502276-EF8C-4AA8-8903-7C5577C8FDC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9795D271-445E-49F5-B8DE-F8C35EEED346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9795D271-445E-49F5-B8DE-F8C35EEED346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9795D271-445E-49F5-B8DE-F8C35EEED346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9795D271-445E-49F5-B8DE-F8C35EEED346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D502276-EF8C-4AA8-8903-7C5577C8FDC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D502276-EF8C-4AA8-8903-7C5577C8FDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D502276-EF8C-4AA8-8903-7C5577C8FDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D502276-EF8C-4AA8-8903-7C5577C8FDC4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
