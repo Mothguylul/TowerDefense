@@ -41,13 +41,14 @@ public class MapTests
 	}
 
 	[Theory]
-	[InlineData(3, 3, 5)]
-	[InlineData(4, 4, false)]
-	[InlineData(0, 0, 3.2f)]
-	public void GetAndSetBoardContents_ShouldWorkCorrectly_WithValidInput(int x, int y, object expectedValue)
+	[InlineData(3, 3)]
+	[InlineData(4, 4)]
+	[InlineData(0, 0)]
+	public void GetAndSetBoardContents_ShouldWorkCorrectly_WithValidInput(int x, int y)
 	{
 		//Arrange
 		Map map = new Map(10,10, (3,4));
+		MapTile expectedValue = new MapTile();
 
 		//Act
 		map.SetBoardContents(x, y, expectedValue);

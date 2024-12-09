@@ -6,7 +6,7 @@ namespace TowerDefense.Logic;
 
 public class Map
 {
-	private readonly object[,] _board;
+	private readonly MapTile[,] _board;
 
 	public int Width => _board.GetLength(0);
 
@@ -18,8 +18,6 @@ public class Map
 
 	public (int X, int Y) EndPoint { get; private set; }
 
-	public List<(int x, int y)> Path => FindPath();
-
 	/// <summary>
 	/// The List of the valid Places at the Beginning
 	/// </summary>
@@ -30,14 +28,12 @@ public class Map
 	/// </summary> 
 	public List<(int x, int y)> ValidTowerPlaces { get;  set; }
 
-	public List<(int x, int y)> PlacedTowers { get;  set; } //NOTE: later maybe with return value Tower
-
 	public Map(int width, int height, (int x, int y) enemySpawnPoint)
 	{
 		if (width <= 0 || height <= 0)
 			throw new ArgumentException(message: $"{nameof(Map)}.cs: width/height cannot be <= 0.");
 		else 
-			_board = new object[width, height];
+			_board = new MapTile[width, height];
 
 		// set enemyspawnpoint
 		if(enemySpawnPoint.y <= 0 || enemySpawnPoint.x <= 0)
@@ -73,21 +69,12 @@ public class Map
 	/// <param name="x"></param>
 	/// <param name="value"></param>
 	/// <exception cref="ArgumentException"></exception>
-	public void SetBoardContents(int x, int y, object value)
+	public void SetBoardContents(int x, int y, MapTile value)
 	{
 		if (x < 0 || x >= Width || y < 0 || y >= Height)
 			throw new ArgumentException("Inputs must be valid");
 		else
 			_board[y, x] = value;
 
-	}
-
-	/// <summary>
-	/// Finds the Path between the Start and Endpoint and returns it in a List
-	/// </summary>
-	/// <exception cref="NotImplementedException"></exception>
-	public List< (int x,int y)> FindPath()
-	{
-		throw new NotImplementedException();
 	}
 }
