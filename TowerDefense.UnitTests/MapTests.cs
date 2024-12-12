@@ -19,7 +19,7 @@ public class MapTests
         int actualWidth = map.Width;
         int actualHeight = map.Height;
 
-		//Assert
+		//Assertb
 		actualWidth.Should().Be(expectedWidth);
 		actualHeight.Should().Be(expectedHeight);
 	}

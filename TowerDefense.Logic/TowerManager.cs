@@ -8,21 +8,32 @@ namespace TowerDefense.Logic
 {
 	public class TowerManager
 	{
-		public readonly List<Tower> Towers = new List<Tower>();
+		private readonly List<Tower> _towers;
+
+		public IReadOnlyList<Tower>Towers => _towers;
+
 
 		private Map _map;
 
-		public TowerManager()
+		public TowerManager(Map map)
 		{
+			_towers = new List<Tower>();
+			_map = map;
 		}
 
 		private void SetNewMap(Map map)
 		{
-			Towers.Clear();
+			_towers.Clear();
 
 			_map = map;
 		}
 
+		/// <summary>
+		/// Builds a tower at a given place and checks if the place is null
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
 		public Tower? BuildTower(int x, int y)
 		{
 			MapTile? tile = _map.GetBoardContents(x, y);
@@ -30,17 +41,22 @@ namespace TowerDefense.Logic
 			if (tile is not null && tile.CanPlaceTower)
 			{
 				Tower tower = new Tower(tile, x, y);
-				Towers.Add(tower);
+				_towers.Add(tower);
 				return tower;
 			}
 
 			return null;
 		}
 
+		/// <summary>
+		/// Removes a Tower by the given coordinates
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
 		public void SellTower(int x, int y)
 		{
 			var findTower = Towers.FirstOrDefault(t => t.X ==  x && t.Y == y);
-			Towers.Remove(findTower);
+			_towers.Remove(findTower);
 
 			// add cash later
 		}

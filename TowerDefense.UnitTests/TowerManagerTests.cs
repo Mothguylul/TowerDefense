@@ -16,17 +16,38 @@ namespace TowerDefense.UnitTests
 		public void SellShould_RemoveTowerFromTowerManagerList(int x, int y)
 		{
 			// Arrange
-			Tower tower = new Tower(new MapTile(),x,y);
-			TowerManager towerManager = new TowerManager();
-			towerManager.Towers.Add(tower);
+			(int x, int y) enemySpawnPoint = (2, 1);
+			Map map = new Map(x, y, enemySpawnPoint);
+			Tower tower = new Tower(new MapTile(), x, y);
+			TowerManager towerManager = new TowerManager(map);
+			towerManager.BuildTower(x, y);
 
 			// Act
-			towerManager.SellTower(x,y);
+			towerManager.SellTower(x, y);
 			var towerInList = towerManager.Towers.FirstOrDefault(t => t.X == x && t.Y == y);
 
 			// Assert
-			Assert.True(towerInList == null);
+			towerInList.Should().BeNull();
 
+		}
+
+		[Theory]
+		[InlineData(3, 5)]
+		public void BuildTower_Should_Add_Tower_To_List(int x, int y)
+		{
+			// Arrange
+			(int x, int y) enemySpawnPoint = (2, 1);
+			Map map = new Map(x, y, enemySpawnPoint);
+			Tower tower = new Tower(new MapTile(), x, y);
+			TowerManager towerManager = new TowerManager(map);
+
+			// Act
+			towerManager.BuildTower(x, y);
+			var towerInList = towerManager.Towers.FirstOrDefault(t => t.X == x && t.Y == y);
+
+
+			// Assert
+			towerInList.Should().NotBeNull();
 		}
 	}
 }

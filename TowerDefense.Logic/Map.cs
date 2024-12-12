@@ -36,6 +36,7 @@ public class Map
 			_board = new MapTile[width, height];
 
 		// set enemyspawnpoint
+		
 		if (enemySpawnPoint.y <= 0 || enemySpawnPoint.x <= 0)
 			throw new ArgumentException("Input cant be negative");
 		else

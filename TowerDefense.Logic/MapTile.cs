@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,15 +13,33 @@ namespace TowerDefense.Logic
 	/// </summary>
 	public class MapTile
 	{
-		public bool EnemyCanWalk {  get; set; }
+		public bool EnemyCanWalk {  get; private set; }
 
-		public bool CanPlaceTower { get; set; }
+		public bool CanPlaceTower { get; private set; }
 
-		public MapTile()
+		public bool IsWalkable {  get; private  set; }
+
+		public bool IsBuildable => !IsWalkable;
+
+		public bool IsStartPoint { get; private set; } = false;
+
+	    public bool IsEndPoint {  get; private set; } = false;	
+
+
+		public MapTile(bool isWalkable = true, bool isStartPoint = false, bool isEndPoint = false)
 		{
 
+			if (isEndPoint && isStartPoint)
+				throw new ValidationException("A Start and an Endpoint cant be at the same point.");
 
+			if (isWalkable is false && isStartPoint)
+				throw new ValidationException("A Start and an Endpoint cant be at the same point.");
+			else if (isWalkable is false && isEndPoint)
+				throw new ValidationException("A Start and an Endpoint cant be at the same point.");
 
+			IsWalkable = isWalkable;
+			IsStartPoint = isStartPoint;
+			IsEndPoint = isEndPoint;
 		}
 	}
 }
