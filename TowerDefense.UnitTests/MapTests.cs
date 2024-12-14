@@ -45,18 +45,29 @@ public class MapTests : IClassFixture<MapFixture>
 		actualHeight.Should().Be(_validBoard.GetLength(1));
 	}
 
-	[Fact(Skip = ("safe for later"))]
-	public void Construction_ShouldThrowExceptionWithNullOrEmptyArray()
+	[Fact]
+	public void Construction_ShouldThrowExceptionWithEmptyArray()
 	{
 		// Arrange
-		var createNullMap = () => new Map(null);
 		var createEmptyMap = () => new Map(new MapTile[3, 3]);
 
 		// Act
 
 		// Assert
-		createNullMap.Should().Throw<ArgumentNullException>();
 		createEmptyMap.Should().Throw<ValidationException>();
+	}
+
+	[Fact]
+	public void Construction_ShouldThrowExceptionWithNullArray()
+	{
+		// Arrange
+		var createNullMap = () => new Map(null);
+
+		// Act
+
+		// Assert
+		createNullMap.Should().Throw<ArgumentNullException>();
+
 	}
 
 	[Fact]
@@ -107,7 +118,7 @@ public class MapTests : IClassFixture<MapFixture>
 		result.Should().Be((0, 1));
 	}
 
-	[Fact(Skip = "dont need it rn")]
+	[Fact]
 	public void EndPoint_ShouldMatchSuppliedArray()
 	{
 		// Arrange

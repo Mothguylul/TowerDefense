@@ -14,22 +14,11 @@ public class Map
 
 	public int Height => _board.GetLength(1);
 
-	public (int X, int Y) EnemySpawnPoint { get; private set; }
-
 	public (int X, int Y) StartPoint { get; private set; }
 
 	public (int X, int Y) EndPoint { get; private set; }
 
-	/// <summary>
-	/// The List of the valid Places at the Beginning
-	/// </summary>
-	public List<(int x, int y)> ValidStartTowerPlaces { get; private set; }
-
-	/// <summary>
-	/// The List of the valid Tower Places through the Game, will be changed 
-	/// </summary> 
-	public List<(int x, int y)> ValidTowerPlaces { get; set; }
-
+	
 	public Map(MapTile[,] validBoard)
 	{
 		if (validBoard is null)
@@ -40,27 +29,6 @@ public class Map
 		_board = validBoard;
 	}
 
-
-	/// <summary>
-	/// Gets a Value on the Board by the given Y and X values
-	/// </summary>
-	/// <param name="y"></param>
-	/// <param name="x"></param>
-	/// <returns></returns>
-	/// <exception cref="ArgumentException"></exception>
-	public MapTile? GetBoardContents(int y, int x)
-	{
-		if (x < 0 || x >= Width || y < 0 || y >= Height)
-			return null;
-		else
-			return _board[y, x];
-	}
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="board"></param>
-	/// <exception cref="ValidationException"></exception>
 	private void ValidateBoard(MapTile[,] board)
 	{
 		int startpoints = 0;
@@ -74,6 +42,9 @@ public class Map
 			for (int y = 0; y < height; y++)  
 			{
 				var tile = board[x, y];
+
+				if (board[x,y] == null)
+					throw new ValidationException();
 
 				Debug.WriteLine($"Inspecting tile at ({x}, {y}): IsStartPoint={tile.IsStartPoint}, IsEndPoint={tile.IsEndPoint}");
 
@@ -99,19 +70,20 @@ public class Map
 			throw new ValidationException("Exactly one EndPoint must be defined.");
 	}
 
+
 	/// <summary>
-	/// Sets a Value to the given Y and X values
+	/// Gets a Value on the Board by the given Y and X values
 	/// </summary>
 	/// <param name="y"></param>
 	/// <param name="x"></param>
-	/// <param name="value"></param>
+	/// <returns></returns>
 	/// <exception cref="ArgumentException"></exception>
-	public void SetBoardContents(int x, int y, MapTile value)
+	public MapTile? GetBoardContents(int y, int x)
 	{
 		if (x < 0 || x >= Width || y < 0 || y >= Height)
-			throw new ArgumentException("Inputs must be valid");
+			return null;
 		else
-			_board[y, x] = value;
-
+			return _board[y, x];
 	}
+
 }
