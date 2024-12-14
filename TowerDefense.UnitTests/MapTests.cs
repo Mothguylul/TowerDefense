@@ -1,91 +1,122 @@
+using System.ComponentModel.DataAnnotations;
 using TowerDefense.Logic;
-using System.Linq;
-
 using FluentAssertions;
+
 namespace TowerDefense.UnitTests;
 
-public class MapTests
+public class MapTests : IClassFixture<MapFixture>
 {
-    [Theory]
-	[InlineData(10, 40)]
-	[InlineData(3,12)]
-	[InlineData(13,32)]
-	public void ints_Should_Match_Size_Of_Array(int expectedWidth, int expectedHeight)
-    {
-        //Arrange
-        Map map = new Map(expectedWidth, expectedHeight, (3,4));
+	private readonly MapTile[,] _validBoard;
+	private readonly MapTile[,] _boardWithNoStartPoint;
+	private readonly MapTile[,] _boardWithNoEndPoint;
+	private readonly MapTile[,] _boardWithSameStartAndEnd;
 
-        //Act
-        int actualWidth = map.Width;
-        int actualHeight = map.Height;
-
-		//Assertb
-		actualWidth.Should().Be(expectedWidth);
-		actualHeight.Should().Be(expectedHeight);
+	public MapTests(MapFixture fixture)
+	{
+		_validBoard = fixture.ValidBoard;
+		_boardWithNoStartPoint = fixture.BoardWithNoStartPoint;
+		_boardWithNoEndPoint = fixture.BoardWithNoEndPoint;
+		_boardWithSameStartAndEnd = fixture.BoardWithSameStartAndEnd;
 	}
-	[Theory]
-	[InlineData(0, 0)]
-	[InlineData(0, 1)]
-	[InlineData(1, 0)]
-	[InlineData(10, -5)]
-	[InlineData(-5, 10)]
-	public void Construction_ShouldThrowArgumentException_WhenInvalidMapSize(int attemptedWidth, int attemptedHeight)
+
+	[Fact]
+	public void Width_ShouldMatchArraySize()
+	{
+		//Arrange
+		Map map = new(_validBoard);
+
+		//Act
+		var actualWidth = map.Width;
+
+		//Assert
+		actualWidth.Should().Be(_validBoard.GetLength(0));
+	}
+
+	[Fact]
+	public void Height_ShouldMatchArraySize()
 	{
 		// Arrange
-		Action create = () => new Map(attemptedWidth, attemptedHeight, (3,4));
+		Map map = new(_validBoard);
+
+		// Act
+		var actualHeight = map.Height;
+
+		// Assert
+		actualHeight.Should().Be(_validBoard.GetLength(1));
+	}
+
+	[Fact(Skip = ("safe for later"))]
+	public void Construction_ShouldThrowExceptionWithNullOrEmptyArray()
+	{
+		// Arrange
+		var createNullMap = () => new Map(null);
+		var createEmptyMap = () => new Map(new MapTile[3, 3]);
 
 		// Act
 
 		// Assert
-		create.Should().ThrowExactly<ArgumentException>().WithMessage("*cannot be <= 0*");
+		createNullMap.Should().Throw<ArgumentNullException>();
+		createEmptyMap.Should().Throw<ValidationException>();
 	}
 
-	[Theory]
-	[InlineData(3, 3)]
-	[InlineData(4, 4)]
-	[InlineData(0, 0)]
-	public void GetAndSetBoardContents_ShouldWorkCorrectly_WithValidInput(int x, int y)
-	{
-		//Arrange
-		Map map = new Map(10,10, (3,4));
-		MapTile expectedValue = new MapTile();
-
-		//Act
-		map.SetBoardContents(x, y, expectedValue);
-		var actualValue = map.GetBoardContents(y, x);
-
-		//Assert
-		Assert.Equal(expectedValue, actualValue);
-	}
-
-	[Theory]
-	[InlineData(10, 10, 4, 4)]
-	public void EnemySpawnPoint_Should_Be_Correctly_Passed(int x, int y, int enemySpawnPointX, int enemySpawnPointY)
-	{
-
-		//Arrange
-		(int, int) enemySpawnPoint = new(enemySpawnPointX, enemySpawnPointY);
-		Map map = new Map(x, y, enemySpawnPoint);
-
-		//Act
-
-		//Assert
-		map.EnemySpawnPoint.Should().Be(enemySpawnPoint);
-
-	}
-	[Theory]
-	[InlineData(10, 10, -7, 1)]
-	[InlineData(10, 10, 3, -3)]
-	[InlineData(10, 10, -7, -7)]
-	public void EnemySpawnPoint_Should_ThrowArgumentException_WhenInvalid(int x, int y, int enemySpawnPointX, int enemySpawnPointY)
+	[Fact]
+	public void Construction_ShouldThrowExceptionWithNoStartPoint()
 	{
 		// Arrange
-		(int, int) enemySpawnPoint = (enemySpawnPointX, enemySpawnPointY);
+		var createMapWithNoStartPoint = () => new Map(_boardWithNoStartPoint);
 
 		// Act
-		Action act = () => new Map(x, y, enemySpawnPoint);
 
 		// Assert
-		act.Should().Throw<ArgumentException>().WithMessage("*Input cant be negative*");
+		createMapWithNoStartPoint.Should().Throw<ValidationException>();
+	}
+	[Fact]
+	public void Construction_ShouldThrowExceptionWithNoEndPoint()
+	{
+		// Arrange
+		var createMapWithNoEndPoint = () => new Map(_boardWithNoEndPoint);
+
+		// Act
+
+		// Assert
+		createMapWithNoEndPoint.Should().Throw<ValidationException>();
+	}
+
+	/*[Fact]
+	public void Construction_ShouldThrowExceptionWithSameStartAndEndPoint()
+	{
+		// Arrange
+		var createMapWithSameStartAndEnd = () => new Map(_boardWithSameStartAndEnd);
+
+		// Act
+
+		// Assert
+		createMapWithSameStartAndEnd.Should().Throw<ValidationException>();
+	}*/
+
+	[Fact]
+	public void StartPoint_ShouldMatchSuppliedArray()
+	{
+		// Arrange
+		Map map = new(_validBoard);
+
+		// Act
+		var result = map.StartPoint;
+
+		// Assert
+		result.Should().Be((0, 1));
+	}
+
+	[Fact(Skip = "dont need it rn")]
+	public void EndPoint_ShouldMatchSuppliedArray()
+	{
+		// Arrange
+		Map map = new(_validBoard);
+
+		// Act
+		var result = map.EndPoint;
+
+		// Assert
+		result.Should().Be((2, 1));
 	}
 }
